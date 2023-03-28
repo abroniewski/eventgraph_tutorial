@@ -13,23 +13,6 @@ outputpath = './prepared_logs/'
 outputfile = 'order_process_event_table_orderhandling_prepared.csv'
 
 
-def LoadLog(localFile):
-    datasetList = []
-    headerCSV = []
-    i = 0
-    with open(localFile) as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if (i==0):
-                headerCSV = list(row)
-                i +=1
-            else:
-               datasetList.append(row)
-        
-    log = pd.DataFrame(datasetList,columns=headerCSV)
-    
-    return headerCSV, log
-
 def PrepareOrderHandling(inputpath, outputpath, fileName):
     csvLog = pd.read_csv(os.path.realpath(inputpath+inputfile), keep_default_na=True) #load full log from csv                  
     csvLog.drop_duplicates(keep='first', inplace=True) #remove duplicates from the dataset
